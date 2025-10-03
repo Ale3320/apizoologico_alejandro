@@ -43,4 +43,18 @@ router.put("/animalitos/:id", (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
+//Eliminar un animal por su id
+
+router.delete("/animalitos/:id", (req, res) => {
+  const { id } = req.params;
+  animalSchema
+    .findByIdAndDelete(id)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      res.json({ message: error });
+    });
+});
+
 module.exports = router; //Siempre se deja al final
