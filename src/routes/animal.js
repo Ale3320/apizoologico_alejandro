@@ -28,6 +28,70 @@ router.get("/animalitos/:id", (req, res) => {
     .catch((error) => res.json({ message: error }));
 });
 
+//Consultar un animal cuya edad no sea igual a un parametro dado
+router.get("/animalitos/no_igual/:edad", (req, res) => {
+  const { edad } = req.params;
+  animalSchema
+    .find({edad:{$ne:edad}})
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+});
+
+//Consultar un animal cuya edad sea igual a un parametro dado
+router.get("/animalitos/igual/:edad", (req, res) => {
+  const { edad } = req.params;
+  animalSchema
+    .find({edad:{$eq:edad}})
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+});
+
+//Consultar un animal cuya edad sea mayor a un parametro dado
+router.get("/animalitos/mayor/:edad", (req, res) => {
+  const { edad } = req.params;
+  animalSchema
+    .find({edad:{$gt:edad}})
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+});
+
+//Consultar un animal cuya edad sea mayor o igual a un parametro dado
+router.get("/animalitos/mayor_igual/:edad", (req, res) => {
+  const { edad } = req.params;
+  animalSchema
+    .find({edad:{$gte:edad}})
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+});
+
+//Consultar un animal cuya edad sea menor a un parametro dado
+router.get("/animalitos/menor/:edad", (req, res) => {
+  const { edad } = req.params;
+  animalSchema
+    .find({edad:{$lt:edad}})
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+});
+
+//Consultar un animal cuya edad sea mayor a un parametro dado
+router.get("/animalitos/menor_igual/:edad", (req, res) => {
+  const { edad } = req.params;
+  animalSchema
+    .find({edad:{$lte:edad}})
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+});
+
+//Consultar un animal cuya edad esta dentro de una matriz parametro dado
+router.get("/animalitos/matriz/:edad", (req, res) => {
+  const { edad } = req.params;
+  const edadNum = edad.split(",").map(w => Number(w)); 
+  animalSchema
+    .find({edad:{$in:edadNum}})
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error }));
+});
+
 //Modificar el nombre de un animal por su id
 router.put("/animalitos/:id", (req, res) => {
   const { id } = req.params;
